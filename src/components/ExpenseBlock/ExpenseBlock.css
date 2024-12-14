@@ -1,0 +1,39 @@
+.expense-block {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expense-block--editing {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.expense-block--editing input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.expense-block__info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.expense-block__name {
+  font-weight: 500;
+}
+
+.expense-block__amount {
+  color: #64748b;
+}
+
+.expense-block__actions {
+  display: flex;
+  gap: 0.5rem;
+}

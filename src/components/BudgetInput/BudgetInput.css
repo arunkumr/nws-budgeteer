@@ -1,0 +1,30 @@
+.budget-input {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.budget-input h2 {
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.budget-input__field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.budget-input__field input {
+  padding: 0.75rem;
+  font-size: 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+}
+
+.currency {
+  font-size: 1.5rem;
+  color: #64748b;
+}

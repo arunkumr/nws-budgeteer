@@ -1,0 +1,31 @@
+.app-title {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+}
+
+.budget-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.budget-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  grid-column: span 3;
+}
+
+@media (max-width: 1200px) {
+  .budget-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .budget-categories {
+    grid-template-columns: 1fr;
+    grid-column: span 1;
+  }
+}
