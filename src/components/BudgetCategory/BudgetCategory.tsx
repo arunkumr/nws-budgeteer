@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../Button/Button';
 import { ExpenseBlock } from '../ExpenseBlock/ExpenseBlock';
-import { CategoryData, Expense } from '../../types';
+import { Expense } from '../../types';
 import './BudgetCategory.css';
 
 interface BudgetCategoryProps {
