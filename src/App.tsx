@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from './components';
 import { BudgetInput } from './components/BudgetInput/BudgetInput';
 import { BudgetCategory } from './components/BudgetCategory/BudgetCategory';
@@ -8,12 +8,33 @@ import { generateId } from './utils/helpers';
 import './App.css';
 
 const App: React.FC = () => {
-  const [totalBudget, setTotalBudget] = useState<number>(0);
-  const [categories, setCategories] = useState<CategoryData[]>([
-    { id: '1', title: 'Needs', expenses: [], limit: undefined },
-    { id: '2', title: 'Wants', expenses: [], limit: undefined },
-    { id: '3', title: 'Savings', expenses: [], limit: undefined }
-  ]);
+  const [totalBudget, setTotalBudget] = useState<number>(() => {
+    // Load total budget from localStorage or default to 0
+    const savedBudget = localStorage.getItem('totalBudget');
+    return savedBudget ? JSON.parse(savedBudget) : 0;
+  });
+
+  const [categories, setCategories] = useState<CategoryData[]>(() => {
+    // Load categories from localStorage or default to initial data
+    const savedCategories = localStorage.getItem('categories');
+    return savedCategories
+      ? JSON.parse(savedCategories)
+      : [
+          { id: '1', title: 'Needs', expenses: [], limit: undefined },
+          { id: '2', title: 'Wants', expenses: [], limit: undefined },
+          { id: '3', title: 'Savings', expenses: [], limit: undefined }
+        ];
+  });
+
+  // Save `totalBudget` to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('totalBudget', JSON.stringify(totalBudget));
+  }, [totalBudget]);
+
+  // Save `categories` to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('categories', JSON.stringify(categories));
+  }, [categories]);
 
   const handleAddExpense = (categoryId: string) => {
     const newExpense: Expense = {

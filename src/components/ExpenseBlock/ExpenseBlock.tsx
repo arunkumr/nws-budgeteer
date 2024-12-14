@@ -14,7 +14,7 @@ export const ExpenseBlock: React.FC<ExpenseBlockProps> = ({
   onUpdate,
   onDelete,
 }) => {
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(expense.amount === 0);
   const [name, setName] = useState(expense.name);
   const [amount, setAmount] = useState(expense.amount);
 

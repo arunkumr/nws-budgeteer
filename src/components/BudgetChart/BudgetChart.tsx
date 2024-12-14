@@ -16,25 +16,27 @@ export const BudgetChart: React.FC<BudgetChartProps> = ({ categories }) => {
   
   // Data for the inner pie chart (category limits)
   const categoryData = {
-    labels: categories.map(cat => cat.title),
+    labels: [      
+      ...categories.flatMap(cat => 
+        [...cat.expenses.map(exp => `${cat.title} - ${exp.name}`),`${cat.title} - Buffer`] // Add category-expense combinations
+      ),
+    ]
+    ,
     datasets: [{
+      data: categories.flatMap(cat => [...cat.expenses.map(exp => exp.amount),
+        (cat.limit || 0) - cat.expenses.reduce((sum, exp) => sum + exp.amount, 0)]),
+      backgroundColor: categories.flatMap(cat => 
+        [...cat.expenses.map(() => CATEGORY_COLORS[cat.title as keyof typeof CATEGORY_COLORS].secondary),
+        CATEGORY_COLORS[cat.title as keyof typeof CATEGORY_COLORS].primary]
+      ),
+    },{
       data: categories.map(cat => ((cat.limit || 0) / totalBudget) * 100),
       backgroundColor: categories.map(cat => CATEGORY_COLORS[cat.title as keyof typeof CATEGORY_COLORS].primary),
     }]
   };
+  debugger;
 
-  // Data for the outer pie chart (expenses)
-  const expenseData = {
-    labels: categories.flatMap(cat => 
-      cat.expenses.map(exp => `${cat.title} - ${exp.name}`)
-    ),
-    datasets: [{
-      data: categories.flatMap(cat => cat.expenses.map(exp => exp.amount)),
-      backgroundColor: categories.flatMap(cat => 
-        cat.expenses.map(() => CATEGORY_COLORS[cat.title as keyof typeof CATEGORY_COLORS].secondary)
-      ),
-    }]
-  };
+
 
   return (
     <div className="budget-chart">
@@ -42,10 +44,6 @@ export const BudgetChart: React.FC<BudgetChartProps> = ({ categories }) => {
         <div className="budget-chart__inner">
           <h3>Category Allocation</h3>
           <Pie data={categoryData} options={CHART_OPTIONS} />
-        </div>
-        <div className="budget-chart__outer">
-          <h3>Expense Breakdown</h3>
-          <Pie data={expenseData} options={CHART_OPTIONS} />
         </div>
       </div>
     </div>
