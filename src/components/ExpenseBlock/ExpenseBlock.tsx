@@ -9,6 +9,9 @@ interface ExpenseBlockProps {
   onDelete: () => void;
 }
 
+const params = new URLSearchParams(window.location.search);
+const curr =  params.get('curr') || '$';
+
 export const ExpenseBlock: React.FC<ExpenseBlockProps> = ({
   expense,
   onUpdate,
@@ -60,7 +63,7 @@ export const ExpenseBlock: React.FC<ExpenseBlockProps> = ({
       <div className="expense-block__info">
         <span className="expense-block__name">{expense.name}</span>
         <span className="expense-block__amount">
-          ${expense.amount.toFixed(2)}
+          {curr}{expense.amount.toFixed(2)}
         </span>
       </div>
       <div className="expense-block__actions">
